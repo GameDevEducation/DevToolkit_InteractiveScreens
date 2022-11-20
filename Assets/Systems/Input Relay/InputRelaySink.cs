@@ -38,10 +38,10 @@ public class InputRelaySink : MonoBehaviour
         // perform a raycast using the graphics raycaster
         List<RaycastResult> results = new List<RaycastResult>();
         Raycaster.Raycast(mouseEvent, results);
-
-        bool sendMouseDown = Input.GetMouseButtonDown(0);
-        bool sendMouseUp = Input.GetMouseButtonUp(0);   
-        bool isMouseDown = Input.GetMouseButton(0);
+        
+        bool sendMouseDown = UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame;
+        bool sendMouseUp = UnityEngine.InputSystem.Mouse.current.leftButton.wasReleasedThisFrame;   
+        bool isMouseDown = UnityEngine.InputSystem.Mouse.current.leftButton.isPressed;
 
         // send through end drag events as needed
         if (sendMouseUp)

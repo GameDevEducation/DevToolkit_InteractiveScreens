@@ -17,9 +17,9 @@ public class InputRelaySource : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {       
         // retrieve a ray based on the mouse location
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray mouseRay = Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Mouse.current.position.ReadValue());
 
         // raycast to find what we have hit
         RaycastHit hitResult;
