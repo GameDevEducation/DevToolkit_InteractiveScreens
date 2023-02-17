@@ -66,16 +66,30 @@ public class InputRelaySink : MonoBehaviour
             if (isMouseDown)
                 eventData.button = PointerEventData.InputButton.Left;
 
+            var slider = result.gameObject.GetComponentInParent<UnityEngine.UI.Slider>();
+
             // potentially new drag targets?
             if (sendMouseDown)
             {
                 if (ExecuteEvents.Execute(result.gameObject, eventData, ExecuteEvents.beginDragHandler))
                     DragTargets.Add(result.gameObject);
+
+                if (slider != null)
+                {
+                    slider.OnInitializePotentialDrag(eventData);
+
+                    if (!DragTargets.Contains(result.gameObject))
+                        DragTargets.Add(result.gameObject);
+                }
             } // need to update drag target
             else if (DragTargets.Contains(result.gameObject))
             {
                 eventData.dragging = true;
                 ExecuteEvents.Execute(result.gameObject, eventData, ExecuteEvents.dragHandler);
+                if (slider != null)
+                {
+                    slider.OnDrag(eventData);
+                }
             }
 
             // send a mouse down event?
